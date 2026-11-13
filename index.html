@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Ulang Tahun ke-18</title>
+  
+  <!-- Google Fonts: Cormorant Garamond, Great Vibes, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --pastel-brown: #d7c4b7;
+      --pastel-brown-light: #f7f3ef;
+      --burgundy: #6b1426;
+      --burgundy-dark: #450c18;
+      --burgundy-light: #8e1f36;
+      --white: #ffffff;
+      --gold-accent: #c5a059;
+      --text-main: #3d2b27;
+      --text-muted: #7d6b67;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-border: rgba(215, 196, 183, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      background-color: var(--burgundy-dark);
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(107, 20, 38, 0.85), rgba(40, 8, 14, 0.95)),
+        url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=1200&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 10px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating Red Petals Animation */
+    .petals-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      background: radial-gradient(circle, #b8253f, #500c19);
+      border-radius: 150% 0 150% 0;
+      opacity: 0.6;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10%;
+        transform: rotate(0deg) translateX(0);
+      }
+      50% {
+        transform: rotate(180deg) translateX(40px);
+      }
+      100% {
+        top: 110%;
+        transform: rotate(360deg) translateX(-30px);
+      }
+    }
+
+    /* Frame Wrapper Mobile View Style */
+    .invitation-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 440px;
+      background: var(--pastel-brown-light);
+      border-radius: 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+      border: 3px solid rgba(215, 196, 183, 0.8);
+    }
+
+    /* Cover / Door Opening Effect */
+    #cover-modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(74, 11, 24, 0.96) 0%, rgba(107, 20, 38, 0.94) 100%),
+                  url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=800&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 30px 24px;
+      color: var(--white);
+      transition: all 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    #cover-modal.opened {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cover-badge {
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--pastel-brown);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .cover-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.2rem;
+      color: #fff;
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+
+    .cover-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: var(--pastel-brown);
+      line-height: 1;
+      margin: 10px 0;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .cover-desc {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 15px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .btn-open {
+      background: linear-gradient(135deg, var(--pastel-brown), #bda492);
+      color: var(--burgundy-dark);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      padding: 13px 32px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-open:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Main Content Sections */
+    .header-banner {
+      position: relative;
+      background: linear-gradient(to bottom, rgba(107, 20, 38, 0.35), rgba(74, 11, 24, 0.85)),
+                  url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=800&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      padding: 55px 20px 40px;
+      text-align: center;
+      color: var(--white);
+      border-bottom: 4px solid var(--pastel-brown);
+    }
+
+    .header-badge {
+      display: inline-block;
+      border: 1px solid var(--pastel-brown);
+      color: var(--pastel-brown-light);
+      padding: 4px 18px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      backdrop-filter: blur(4px);
+    }
+
+    .profile-photo-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 20px;
+    }
+
+    .profile-photo-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px dashed var(--pastel-brown);
+      animation: spin 30s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 4px solid var(--white);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .celebrant-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.2rem;
+      margin-bottom: 2px;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .birthday-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--pastel-brown);
+      text-transform: uppercase;
+    }
+
+    /* Content Area */
+    .content-area {
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Message / Ucapan Card */
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 24px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 8px 24px rgba(107, 20, 38, 0.07);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--pastel-brown), var(--burgundy), var(--pastel-brown));
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .quote-text {
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .message-body {
+      font-size: 0.92rem;
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    /* Countdown Section */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .count-box {
+      background: var(--pastel-brown-light);
+      border: 1px solid var(--pastel-brown);
+      border-radius: 12px;
+      padding: 10px 4px;
+      text-align: center;
+    }
+
+    .count-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      line-height: 1;
+    }
+
+    .count-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* Event Details Card */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+      margin-top: 15px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--pastel-brown-light);
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(215, 196, 183, 0.4);
+    }
+
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--burgundy);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(107, 20, 38, 0.25);
+    }
+
+    .info-content h4 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .info-content p {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--burgundy-dark);
+    }
+
+    .info-content small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-top: 2px;
+    }
+
+    .btn-maps {
+      margin-top: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--burgundy);
+      color: var(--white);
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(107, 20, 38, 0.3);
+      transition: background 0.3s;
+    }
+
+    .btn-maps:hover {
+      background: var(--burgundy-light);
+    }
+
+    /* Dresscode / Palette Pill */
+    .palette-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin: 15px 0 5px;
+    }
+
+    .palette-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .circle-brown { background-color: #d7c4b7; }
+    .circle-white { background-color: #ffffff; border: 2px solid #ddd; }
+    .circle-burgundy { background-color: #6b1426; }
+
+    /* Audio Player Floating Button */
+    .audio-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: var(--burgundy);
+      color: white;
+      border-radius: 50%;
+      border: 2px solid var(--pastel-brown);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 999;
+      transition: transform 0.3s ease;
+    }
+
+    .audio-btn.rotating {
+      animation: spin 4s linear infinite;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--burgundy);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Falling Petals -->
+  <div class="petals-container" id="petals"></div>
+
+  <!-- Audio Element (Instrumental Romance / Acoustic) -->
+  <audio id="bg-audio" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-acoustic-guitar-112191.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Audio Control Floating Button -->
+  <button class="audio-btn" id="audio-toggle" title="Putar Musik">
+    <i class="fa-solid fa-compact-disc"></i>
+  </button>
+
+  <div class="invitation-wrapper">
+
+    <!-- Cover Modal / Amplop Pembuka -->
+    <div id="cover-modal">
+      <div class="cover-badge"><i class="fa-solid fa-star"></i> SPECIAL INVITATION <i class="fa-solid fa-star"></i></div>
+      <h2 class="cover-title">Sweet Eighteen</h2>
+      <div class="cover-number">18th</div>
+      <p class="cover-desc">
+        Dengan penuh rasa syukur & bahagia, kami mengundang Anda untuk hadir di perayaan ulang tahun ke-18.
+      </p>
+      <button class="btn-open" id="open-invitation">
+        <i class="fa-solid fa-envelope-open"></i> Buka Undangan
+      </button>
+    </div>
+
+    <!-- Main Header & Profile Banner -->
+    <header class="header-banner">
+      <span class="header-badge">The Celebration of</span>
+      
+      <div class="profile-photo-container">
+        <div class="profile-photo-ring"></div>
+        <img src="foto.jpg" 
+             alt="Foto Ulang Tahun Luna" 
+             class="profile-photo" id="celebrant-img">
+      </div>
+
+      <h1 class="celebrant-name">Luna</h1>
+      <p class="birthday-label">18th Birthday Party</p>
+    </header>
+
+    <div class="content-area">
+
+      <!-- Ucapan & Doa Card -->
+      <section class="card">
+        <h3 class="card-title"><i class="fa-solid fa-heart" style="color: var(--burgundy);"></i> Ucapan & Syukur</h3>
+        <p class="quote-text">
+          "Langkah baru, kedewasaan baru, dan sejuta harapan indah di umur yang ke-18."
+        </p>
+        <p class="message-body">
+          Segala puji dan syukur kepada Tuhan Yang Maha Esa atas bertambahnya usia ke-18 tahun ini. 
+          Kehadiran, doa, dan senyuman teman-teman serta keluarga tercinta merupakan kado terindah bagi kami.
+        </p>
+      </section>
+
+      <!-- Countdown Card -->
+      <section class="card">
+        <h3 class="card-title"><i class="fa-regular fa-clock"></i> Hitung Mundur Acara</h3>
+        <div class="countdown-grid">
+          <div class="count-box">
+            <div class="count-num" id="days">00</div>
+            <div class="count-label">Hari</div>
+          </div>
+          <div class="count-box">
+            <div class="count-num" id="hours">00</div>
+            <div class="count-label">Jam</div>
+          </div>
+          <div class="count-box">
+            <div class="count-num" id="minutes">00</div>
+            <div class="count-label">Menit</div>
+          </div>
+          <div class="count-box">
+            <div class="count-num" id="seconds">00</div>
+            <div class="count-label">Detik</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Event Time & Location Card -->
+      <section class="card">
+        <h3 class="card-title"><i class="fa-regular fa-calendar-check"></i> Waktu & Tempat</h3>
+        
+        <div class="info-list">
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fa-regular fa-calendar"></i>
+            </div>
+            <div class="info-content">
+              <h4>Hari & Tanggal</h4>
+              <p>Sabtu, 21 November</p>
+              <small>Tahun 2026</small>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="info-content">
+              <h4>Waktu Pelaksanaan</h4>
+              <p>16.00 WIB - Selesai</p>
+              <small>Harap hadir tepat waktu</small>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="info-content">
+              <h4>Lokasi Acara</h4>
+              <p>Makam RW 09 Gempol</p>
+              <small>Area Berkumpul / Pendopo Sekitar</small>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://www.google.com/maps/search/makam+rw+09+gempol" target="_blank" class="btn-maps">
+          <i class="fa-solid fa-map-location-dot"></i> Buka Google Maps
+        </a>
+      </section>
+
+      <!-- Dress Code / Tema Warna Card -->
+      <section class="card">
+        <h3 class="card-title"><i class="fa-solid fa-vest-patches"></i> Dress Code</h3>
+        <p class="message-body" style="font-size: 0.85rem;">
+          Kami menyarankan tamu undangan mengenakan pakaian dengan nuansa tema warna acara:
+        </p>
+        <div class="palette-container">
+          <div style="text-align: center;">
+            <div class="palette-circle circle-brown"></div>
+            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Pastel Brown</span>
+          </div>
+          <div style="text-align: center;">
+            <div class="palette-circle circle-white"></div>
+            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Putih</span>
+          </div>
+          <div style="text-align: center;">
+            <div class="palette-circle circle-burgundy"></div>
+            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Burgundy</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer / Terima Kasih -->
+      <footer>
+        <p>"Merupakan suatu kebahagiaan bagi kami atas kehadiran Anda"</p>
+        <span>Sampai jumpa di hari bahagia kami! ❤️</span>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    // Inisialisasi Kelopak Bunga Berjatuhan (Red Flowers Petals)
+    const petalsContainer = document.getElementById('petals');
+    const petalCount = 20;
+
+    for (let i = 0; i < petalCount; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      const size = Math.random() * 14 + 10;
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size * 1.3}px`;
+      petal.style.left = `${Math.random() * 100}%`;
+      petal.style.animationDuration = `${Math.random() * 6 + 5}s`;
+      petal.style.animationDelay = `${Math.random() * 5}s`;
+      petalsContainer.appendChild(petal);
+    }
+
+    // Audio Handler
+    const audio = document.getElementById('bg-audio');
+    const audioToggle = document.getElementById('audio-toggle');
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+        audioToggle.classList.remove('rotating');
+        audioToggle.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+      } else {
+        audio.play().then(() => {
+          audioToggle.classList.add('rotating');
+          audioToggle.innerHTML = '<i class="fa-solid fa-compact-disc"></i>';
+        }).catch(e => console.log("Audio autoplay dicegah browser:", e));
+      }
+      isPlaying = !isPlaying;
+    }
+
+    audioToggle.addEventListener('click', toggleAudio);
+
+    // Tombol Buka Undangan
+    const openBtn = document.getElementById('open-invitation');
+    const coverModal = document.getElementById('cover-modal');
+
+    openBtn.addEventListener('click', () => {
+      coverModal.classList.add('opened');
+      toggleAudio(); // Mainkan musik otomatis saat membuka undangan
+    });
+
+    // Countdown Timer ke Sabtu, 21 November 16:00
+    // Menghitung target tanggal 21 November (tahun berjalan/terdekat)
+    const currentYear = new Date().getFullYear();
+    let targetDate = new Date(`Nov 21, ${currentYear} 16:00:00`).getTime();
+    
+    // Jika tanggal sudah lewat di tahun ini, arahkan ke tahun depan
+    if (new Date().getTime() > targetDate) {
+      targetDate = new Date(`Nov 21, ${currentYear + 1} 16:00:00`).getTime();
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+      } else {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('minutes').innerText = "00";
+        document.getElementById('seconds').innerText = "00";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
