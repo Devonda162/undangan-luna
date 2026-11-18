@@ -1044,30 +1044,115 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Wishes Form Handler
+    // Wishes Form Handler & Persistent Storage (Firebase Cloud + LocalStorage)
     const wishForm = document.getElementById('wish-form');
     const wishesContainer = document.getElementById('wishes-container');
+    const FIREBASE_URL = 'https://undangan-luna-default-rtdb.asia-southeast1.firebasedatabase.app/wishes.json';
 
-    wishForm.addEventListener('submit', (e) => {
+    // Data ucapan bawaan/default
+    const defaultWishes = [
+      {
+        name: 'Sahabat Luna ❤️',
+        status: 'Present',
+        message: 'Happy Sweet 18th Birthday Luna! Semoga panjang umur, sehat selalu, dan tercapai semua impian indahmu!'
+      }
+    ];
+
+    function renderWish(wish, prepend = true) {
+      const bubble = document.createElement('div');
+      bubble.className = 'wish-bubble';
+      bubble.innerHTML = `
+        <div class="wish-author">
+          <span>${escapeHtml(wish.name)}</span>
+          <span class="wish-attendance">${escapeHtml(wish.status)}</span>
+        </div>
+        <p class="wish-msg">${escapeHtml(wish.message)}</p>
+      `;
+      if (prepend) {
+        wishesContainer.prepend(bubble);
+      } else {
+        wishesContainer.appendChild(bubble);
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+
+    async function loadWishes() {
+      wishesContainer.innerHTML = '';
+      
+      // 1. Coba muat dari cloud database publik
+      try {
+        const res = await fetch(FIREBASE_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (data) {
+            const wishesList = Object.values(data);
+            wishesList.reverse().forEach(w => renderWish(w, false));
+            // Backup ke localStorage
+            localStorage.setItem('luna_wishes', JSON.stringify(wishesList));
+            return;
+          }
+        }
+      } catch (err) {
+        console.log('Online fetch error, fallback ke local storage:', err);
+      }
+
+      // 2. Fallback ke LocalStorage jika offline / cloud belum terisi
+      const local = JSON.parse(localStorage.getItem('luna_wishes') || 'null');
+      if (local && local.length > 0) {
+        local.forEach(w => renderWish(w, false));
+      } else {
+        defaultWishes.forEach(w => renderWish(w, false));
+      }
+    }
+
+    wishForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const submitBtn = wishForm.querySelector('.btn-submit-wish');
+      const originalText = submitBtn.innerHTML;
+
       const name = document.getElementById('wish-name').value.trim();
       const status = document.getElementById('wish-status').value;
       const message = document.getElementById('wish-message').value.trim();
 
-      if (name && message) {
-        const bubble = document.createElement('div');
-        bubble.className = 'wish-bubble';
-        bubble.innerHTML = `
-          <div class="wish-author">
-            <span>${name}</span>
-            <span class="wish-attendance">${status}</span>
-          </div>
-          <p class="wish-msg">${message}</p>
-        `;
-        wishesContainer.prepend(bubble);
-        wishForm.reset();
+      if (!name || !message) return;
+
+      const newWish = { name, status, message, timestamp: Date.now() };
+
+      // Tampilkan langsung di layar
+      renderWish(newWish, true);
+      wishForm.reset();
+
+      // Simpan di LocalStorage browser
+      const saved = JSON.parse(localStorage.getItem('luna_wishes') || '[]');
+      saved.unshift(newWish);
+      localStorage.setItem('luna_wishes', JSON.stringify(saved));
+
+      // Kirim dan simpan ke Cloud Database (agar dilihat semua orang)
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+      try {
+        await fetch(FIREBASE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newWish)
+        });
+        submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Terkirim!';
+      } catch (err) {
+        console.log('Cloud sync error:', err);
+        submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Tersimpan Lokal';
       }
+
+      setTimeout(() => {
+        submitBtn.innerHTML = originalText;
+      }, 2500);
     });
+
+    // Panggil saat halaman dibuka
+    loadWishes();
   </script>
 </body>
 </html>
