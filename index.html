@@ -3,29 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Undangan Ulang Tahun ke-18</title>
-  
-  <!-- Google Fonts: Cormorant Garamond, Great Vibes, Plus Jakarta Sans -->
+  <title>Birthday Party Luna - 18th</title>
+
+  <!-- Google Fonts: Agbalumo, Playfair Display, Great Vibes, Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
       --pastel-brown: #d7c4b7;
-      --pastel-brown-light: #f7f3ef;
+      --pastel-brown-light: #f9f6f2;
+      --pastel-brown-dark: #bba291;
       --burgundy: #6b1426;
       --burgundy-dark: #450c18;
       --burgundy-light: #8e1f36;
+      --burgundy-glass: rgba(107, 20, 38, 0.88);
       --white: #ffffff;
-      --gold-accent: #c5a059;
-      --text-main: #3d2b27;
+      --gold-accent: #d4af37;
+      --text-main: #2d1810;
       --text-muted: #7d6b67;
-      --card-bg: rgba(255, 255, 255, 0.92);
-      --card-border: rgba(215, 196, 183, 0.5);
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-border: rgba(215, 196, 183, 0.65);
     }
 
     * {
@@ -40,7 +42,7 @@
       color: var(--text-main);
       background-color: var(--burgundy-dark);
       background-image: 
-        radial-gradient(circle at 50% 50%, rgba(107, 20, 38, 0.85), rgba(40, 8, 14, 0.95)),
+        radial-gradient(circle at 50% 30%, rgba(107, 20, 38, 0.85), rgba(40, 8, 14, 0.96)),
         url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=1200&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
@@ -49,12 +51,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px 10px;
-      position: relative;
+      padding: 0;
       overflow-x: hidden;
     }
 
-    /* Floating Red Petals Animation */
+    /* Floating Red Rose Petals */
     .petals-container {
       position: fixed;
       top: 0;
@@ -62,7 +63,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 1;
+      z-index: 10;
       overflow: hidden;
     }
 
@@ -70,8 +71,8 @@
       position: absolute;
       background: radial-gradient(circle, #b8253f, #500c19);
       border-radius: 150% 0 150% 0;
-      opacity: 0.6;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      opacity: 0.55;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
       animation: fall linear infinite;
     }
 
@@ -81,120 +82,179 @@
         transform: rotate(0deg) translateX(0);
       }
       50% {
-        transform: rotate(180deg) translateX(40px);
+        transform: rotate(180deg) translateX(45px);
       }
       100% {
         top: 110%;
-        transform: rotate(360deg) translateX(-30px);
+        transform: rotate(360deg) translateX(-35px);
       }
     }
 
-    /* Frame Wrapper Mobile View Style */
-    .invitation-wrapper {
+    /* App Container (Phone Frame Look) */
+    .app-container {
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
       background: var(--pastel-brown-light);
-      border-radius: 28px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.2);
+      min-height: 100vh;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.15);
       overflow: hidden;
-      border: 3px solid rgba(215, 196, 183, 0.8);
+      margin: 0 auto;
     }
 
-    /* Cover / Door Opening Effect */
-    #cover-modal {
-      position: absolute;
+    /* =========================================
+       COVER / OPENING SCREEN (Full Overlay)
+       ========================================= */
+    #cover-screen {
+      position: fixed;
       top: 0;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(74, 11, 24, 0.96) 0%, rgba(107, 20, 38, 0.94) 100%),
+      max-width: 420px;
+      height: 100vh;
+      height: 100dvh;
+      background: linear-gradient(180deg, rgba(69, 12, 24, 0.92) 0%, rgba(107, 20, 38, 0.90) 50%, rgba(55, 9, 19, 0.96) 100%),
                   url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=800&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
-      z-index: 99;
+      z-index: 999;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       text-align: center;
-      padding: 30px 24px;
+      padding: 45px 24px 35px;
       color: var(--white);
-      transition: all 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+      transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
     }
 
-    #cover-modal.opened {
-      transform: translateY(-100%);
+    #cover-screen.opened {
+      transform: translate(-50%, -100%);
       opacity: 0;
       pointer-events: none;
     }
 
-    .cover-badge {
-      font-size: 0.85rem;
-      letter-spacing: 4px;
+    .cover-top-tag {
+      font-size: 0.78rem;
+      letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--pastel-brown);
-      margin-top: -30px;
-      margin-bottom: 25px;
-      font-weight: 600;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .cover-title {
-      font-family: 'Great Vibes', cursive;
-      color: #fff;
-      text-shadow: 0 3px 15px rgba(0, 0, 0, 0.45);
+    .cover-top-tag::before, .cover-top-tag::after {
+      content: '';
+      display: inline-block;
+      width: 25px;
+      height: 1px;
+      background: var(--pastel-brown);
+      opacity: 0.7;
+    }
+
+    .cover-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin: auto 0;
+    }
+
+    .cover-party-tag {
+      font-family: 'Agbalumo', cursive, sans-serif;
+      font-size: 1.4rem;
+      color: var(--pastel-brown);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .cover-join-text {
+      font-size: 0.82rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    /* Staggered Title */
+    .staggered-title {
       width: 100%;
       max-width: 320px;
-      margin: 0 auto 10px;
+      margin: 5px auto 10px;
       position: relative;
     }
 
-    .cover-title .word-sweet {
+    .staggered-title .word-luna {
       display: block;
-      font-size: 3.5rem;
+      font-family: 'Agbalumo', cursive;
+      font-size: 3.6rem;
+      line-height: 1.05;
+      color: var(--white);
       text-align: left;
       padding-left: 20px;
-      line-height: 1;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
-    .cover-title .word-eighteen {
+    .staggered-title .word-eighteen {
       display: block;
-      font-size: 3.7rem;
+      font-family: 'Agbalumo', cursive;
+      font-size: 3.4rem;
+      line-height: 0.95;
+      color: var(--pastel-brown);
       text-align: right;
       padding-right: 20px;
-      line-height: 0.9;
-      margin-top: -12px;
+      margin-top: -10px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
-    .cover-number {
+    .cover-bday-sub {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
-      font-weight: 700;
-      color: var(--pastel-brown);
-      line-height: 1;
-      margin: 10px 0;
-      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-size: 1.8rem;
+      font-style: italic;
+      color: var(--white);
+      letter-spacing: 2px;
+      margin-top: 5px;
+      text-transform: lowercase;
     }
 
-    .cover-desc {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.85);
-      margin-top: 15px;
-      margin-bottom: 30px;
-      line-height: 1.6;
+    .cover-date-pill {
+      margin-top: 18px;
+      display: inline-block;
+      padding: 7px 22px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(215, 196, 183, 0.5);
+      border-radius: 30px;
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      color: var(--white);
+      backdrop-filter: blur(5px);
     }
 
-    .btn-open {
-      background: linear-gradient(135deg, var(--pastel-brown), #bda492);
+    .cover-bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .btn-open-invite {
+      background: linear-gradient(135deg, var(--pastel-brown), #c9b19f);
       color: var(--burgundy-dark);
       font-size: 0.95rem;
       font-weight: 700;
       border: none;
-      padding: 13px 32px;
-      border-radius: 30px;
+      padding: 14px 38px;
+      border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -202,104 +262,108 @@
       letter-spacing: 0.5px;
     }
 
-    .btn-open:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    .btn-open-invite:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
     }
 
-    /* Main Content Sections */
-    .header-banner {
+    /* =========================================
+       MAIN INVITATION SECTIONS
+       ========================================= */
+    .section-wrap {
+      padding: 55px 22px;
       position: relative;
-      background: linear-gradient(to bottom, rgba(107, 20, 38, 0.35), rgba(74, 11, 24, 0.85)),
+    }
+
+    /* Section 1: Intro Profile & Greeting */
+    .section-hero {
+      background: linear-gradient(180deg, rgba(107, 20, 38, 0.92) 0%, rgba(69, 12, 24, 0.96) 100%),
                   url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=800&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
-      padding: 55px 20px 40px;
       text-align: center;
       color: var(--white);
       border-bottom: 4px solid var(--pastel-brown);
+      padding-top: 60px;
+      padding-bottom: 50px;
     }
 
-    .header-badge {
+    .badge-sub {
       display: inline-block;
-      border: 1px solid var(--pastel-brown);
-      color: var(--pastel-brown-light);
-      padding: 4px 18px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      letter-spacing: 3px;
+      font-size: 0.72rem;
+      letter-spacing: 4px;
       text-transform: uppercase;
+      color: var(--pastel-brown);
+      font-weight: 700;
       margin-bottom: 15px;
-      backdrop-filter: blur(4px);
     }
 
-    .profile-photo-container {
+    .hero-photo-wrap {
       position: relative;
-      width: 150px;
-      height: 150px;
-      margin: 0 auto 20px;
+      width: 175px;
+      height: 175px;
+      margin: 0 auto 24px;
     }
 
-    .profile-photo-ring {
+    .hero-photo-ring {
       position: absolute;
-      inset: -6px;
+      inset: -8px;
       border-radius: 50%;
       border: 2px dashed var(--pastel-brown);
-      animation: spin 30s linear infinite;
+      animation: spin 35s linear infinite;
     }
 
     @keyframes spin {
       100% { transform: rotate(360deg); }
     }
 
-    .profile-photo {
+    .hero-photo {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
-      border: 4px solid var(--white);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border: 5px solid var(--white);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
     }
 
-    .celebrant-name {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.2rem;
-      margin-bottom: 2px;
+    .hero-invitation-quote {
+      font-size: 1.05rem;
+      line-height: 1.6;
       color: #fff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      font-weight: 500;
+      margin-bottom: 16px;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .birthday-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      letter-spacing: 2px;
+    .hero-celebrant-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
       color: var(--pastel-brown);
-      text-transform: uppercase;
+      line-height: 1.1;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+      margin-bottom: 4px;
     }
 
-    /* Content Area */
-    .content-area {
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* Message / Ucapan Card */
-    .card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 24px 20px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 8px 24px rgba(107, 20, 38, 0.07);
+    /* Section 2: Save The Date Card */
+    .section-date {
+      background: var(--pastel-brown-light);
       text-align: center;
+    }
+
+    .card-modern {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 32px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 30px rgba(107, 20, 38, 0.08);
       position: relative;
       overflow: hidden;
     }
 
-    .card::before {
+    .card-modern::before {
       content: '';
       position: absolute;
       top: 0;
@@ -309,121 +373,106 @@
       background: linear-gradient(90deg, var(--pastel-brown), var(--burgundy), var(--pastel-brown));
     }
 
-    .card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.45rem;
+    .sec-tag {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--pastel-brown-dark);
       font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .sec-title {
+      font-family: 'Agbalumo', cursive, sans-serif;
+      font-size: 1.7rem;
       color: var(--burgundy);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      margin-bottom: 22px;
+      letter-spacing: 0.5px;
     }
 
-    .quote-text {
-      font-style: italic;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-
-    .message-body {
-      font-size: 0.92rem;
-      color: var(--text-main);
-      line-height: 1.7;
-    }
-
-    /* Countdown Section */
-    .countdown-grid {
+    /* Countdown Styling (seperti jadiundang) */
+    .countdown-flex {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
-      margin-top: 15px;
+      margin-bottom: 28px;
     }
 
-    .count-box {
-      background: var(--pastel-brown-light);
-      border: 1px solid var(--pastel-brown);
-      border-radius: 12px;
-      padding: 10px 4px;
-      text-align: center;
+    .countdown-unit {
+      background: linear-gradient(180deg, #ffffff 0%, var(--pastel-brown-light) 100%);
+      border: 1.5px solid var(--pastel-brown);
+      border-radius: 14px;
+      padding: 12px 4px;
+      box-shadow: 0 4px 12px rgba(107, 20, 38, 0.06);
     }
 
-    .count-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.7rem;
-      font-weight: 700;
+    .countdown-num {
+      font-family: 'Agbalumo', cursive, sans-serif;
+      font-size: 1.8rem;
       color: var(--burgundy);
       line-height: 1;
     }
 
-    .count-label {
+    .countdown-lbl {
       font-size: 0.65rem;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      letter-spacing: 1px;
       color: var(--text-muted);
-      margin-top: 4px;
-      font-weight: 600;
+      margin-top: 5px;
+      font-weight: 700;
     }
 
-    /* Event Details Card */
-    .info-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      text-align: left;
-      margin-top: 15px;
-    }
-
-    .info-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
+    /* Event Info Row */
+    .info-block {
       background: var(--pastel-brown-light);
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(215, 196, 183, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-align: left;
     }
 
-    .info-icon {
-      width: 40px;
-      height: 40px;
+    .info-icon-circle {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: var(--burgundy);
       color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
       flex-shrink: 0;
-      box-shadow: 0 4px 10px rgba(107, 20, 38, 0.25);
+      box-shadow: 0 4px 12px rgba(107, 20, 38, 0.25);
     }
 
-    .info-content h4 {
-      font-size: 0.82rem;
+    .info-text h4 {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      letter-spacing: 1px;
       color: var(--text-muted);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
-    .info-content p {
+    .info-text p {
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--burgundy-dark);
+      line-height: 1.3;
     }
 
-    .info-content small {
+    .info-text small {
       display: block;
       color: var(--text-muted);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       margin-top: 2px;
     }
 
     .btn-maps {
-      margin-top: 15px;
+      margin-top: 8px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -432,244 +481,496 @@
       background: var(--burgundy);
       color: var(--white);
       text-decoration: none;
-      padding: 12px;
-      border-radius: 12px;
+      padding: 13px 20px;
+      border-radius: 14px;
       font-size: 0.9rem;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(107, 20, 38, 0.3);
-      transition: background 0.3s;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(107, 20, 38, 0.25);
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
     }
 
     .btn-maps:hover {
       background: var(--burgundy-light);
+      transform: translateY(-2px);
     }
 
-    /* Dresscode / Palette Pill */
-    .palette-container {
+    /* Dress Code */
+    .dresscode-box {
+      margin-top: 22px;
+      padding: 18px 16px;
+      background: #ffffff;
+      border: 1px dashed var(--pastel-brown-dark);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .dresscode-title {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--burgundy);
+      margin-bottom: 6px;
+    }
+
+    .dresscode-val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--burgundy-dark);
+      margin-bottom: 12px;
+    }
+
+    .palette-row {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 14px;
-      margin: 15px 0 5px;
+      gap: 16px;
     }
 
-    .palette-circle {
-      width: 44px;
-      height: 44px;
+    .pal-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pal-circle {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      border: 3px solid #fff;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      position: relative;
+      border: 2px solid #fff;
     }
 
-    .circle-brown { background-color: #d7c4b7; }
-    .circle-white { background-color: #ffffff; border: 2px solid #ddd; }
-    .circle-burgundy { background-color: #6b1426; }
+    .pal-circle.brown { background-color: var(--pastel-brown); }
+    .pal-circle.white { background-color: #ffffff; border: 2px solid #ddd; }
+    .pal-circle.burgundy { background-color: var(--burgundy); }
 
-    /* Audio Player Floating Button */
-    .audio-btn {
+    .pal-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Section 3: Wishes & Prayers (Buku Tamu / Ucapan) */
+    .section-wishes {
+      background: var(--pastel-brown-light);
+      padding-top: 10px;
+      padding-bottom: 40px;
+    }
+
+    .wishes-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 28px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 30px rgba(107, 20, 38, 0.08);
+    }
+
+    .wishes-card .sec-title {
+      margin-bottom: 6px;
+    }
+
+    .wishes-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      background: var(--pastel-brown-light);
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--burgundy);
+      background: #ffffff;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .btn-submit-wish {
+      width: 100%;
+      background: var(--burgundy);
+      color: var(--white);
+      border: none;
+      padding: 13px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(107, 20, 38, 0.25);
+      transition: background 0.3s;
+    }
+
+    .btn-submit-wish:hover {
+      background: var(--burgundy-light);
+    }
+
+    /* Wish List Display */
+    .wishes-stream {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .wish-bubble {
+      background: var(--pastel-brown-light);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      text-align: left;
+    }
+
+    .wish-author {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .wish-attendance {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(107, 20, 38, 0.1);
+      color: var(--burgundy);
+      font-weight: 600;
+    }
+
+    .wish-msg {
+      font-size: 0.84rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* Section 4: Closing Quote (Sesuai jadiundang.com/rere) */
+    .section-closing {
+      background: linear-gradient(180deg, rgba(69, 12, 24, 0.96) 0%, rgba(107, 20, 38, 0.92) 100%),
+                  url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=800&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      color: var(--white);
+      padding: 55px 24px 60px;
+      border-top: 4px solid var(--pastel-brown);
+    }
+
+    .closing-text-p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 25px;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .closing-with-love {
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--pastel-brown);
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .closing-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #ffffff;
+      text-shadow: 0 3px 15px rgba(0,0,0,0.4);
+      margin-bottom: 25px;
+    }
+
+    .footer-watermark {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 1px;
+    }
+
+    /* Floating Music Disk Button (seperti jadiundang) */
+    .music-btn {
       position: fixed;
       bottom: 24px;
       right: 24px;
       width: 48px;
       height: 48px;
       background: var(--burgundy);
-      color: white;
+      color: var(--white);
       border-radius: 50%;
       border: 2px solid var(--pastel-brown);
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       cursor: pointer;
-      z-index: 999;
+      z-index: 1000;
       transition: transform 0.3s ease;
     }
 
-    .audio-btn.rotating {
-      animation: spin 4s linear infinite;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 24px 10px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    footer p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: var(--burgundy);
-      font-style: italic;
-      margin-bottom: 4px;
+    .music-btn.rotating {
+      animation: spin 5s linear infinite;
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Falling Petals -->
+  <!-- Falling Red Rose Petals Background -->
   <div class="petals-container" id="petals"></div>
 
-  <!-- Audio Element (Instrumental Romance / Acoustic) -->
+  <!-- Background Music Audio (Dancing Queen / Party Vibe) -->
   <audio id="bg-audio" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-acoustic-guitar-112191.mp3" type="audio/mpeg">
+    <source src="https://jadiundang.com/wp-content/uploads/2026/03/ABBA-Dancing-Queen-Lyrics-128-kbps.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Audio Control Floating Button -->
-  <button class="audio-btn" id="audio-toggle" title="Putar Musik">
+  <!-- Floating Audio Button -->
+  <button class="music-btn" id="audio-toggle" title="Putar / Hentikan Musik">
     <i class="fa-solid fa-compact-disc"></i>
   </button>
 
-  <div class="invitation-wrapper">
+  <div class="app-container">
 
-    <!-- Cover Modal / Amplop Pembuka -->
-    <div id="cover-modal">
-      <div class="cover-badge"><i class="fa-solid fa-star"></i> SPECIAL INVITATION <i class="fa-solid fa-star"></i></div>
-      <h2 class="cover-title">
-        <span class="word-sweet">Sweet</span>
-        <span class="word-eighteen">Eighteen</span>
-      </h2>
-
-      <p class="cover-desc">
-        Join Us To Celebrate
-      </p>
-      <button class="btn-open" id="open-invitation">
-        <i class="fa-solid fa-envelope-open"></i> Invite Me
-      </button>
-    </div>
-
-    <!-- Main Header & Profile Banner -->
-    <header class="header-banner">
-      <span class="header-badge">The Celebration of</span>
-      
-      <div class="profile-photo-container">
-        <div class="profile-photo-ring"></div>
-        <img src="foto.jpg" 
-             alt="Foto Ulang Tahun Luna" 
-             class="profile-photo" id="celebrant-img">
+    <!-- ====================================================
+         COVER OVERLAY (Tampilan Pembuka seperti Jadiundang)
+         ==================================================== -->
+    <div id="cover-screen">
+      <div class="cover-top-tag">
+        <span>LET'S PARTY</span>
       </div>
 
-      <h1 class="celebrant-name">Luna</h1>
-      <p class="birthday-label">18th Birthday Party</p>
-    </header>
-
-    <div class="content-area">
-
-      <!-- Ucapan & Doa Card -->
-      <section class="card">
-        <h3 class="card-title"><i class="fa-solid fa-heart" style="color: var(--burgundy);"></i> Ucapan & Syukur</h3>
-        <p class="quote-text">
-          "Langkah baru, kedewasaan baru, dan sejuta harapan indah di umur yang ke-18."
-        </p>
-        <p class="message-body">
-          Segala puji dan syukur kepada Tuhan Yang Maha Esa atas bertambahnya usia ke-18 tahun ini. 
-          Kehadiran, doa, dan senyuman teman-teman serta keluarga tercinta merupakan kado terindah bagi kami.
-        </p>
-      </section>
-
-      <!-- Countdown Card -->
-      <section class="card">
-        <h3 class="card-title"><i class="fa-regular fa-clock"></i> Hitung Mundur Acara</h3>
-        <div class="countdown-grid">
-          <div class="count-box">
-            <div class="count-num" id="days">00</div>
-            <div class="count-label">Hari</div>
-          </div>
-          <div class="count-box">
-            <div class="count-num" id="hours">00</div>
-            <div class="count-label">Jam</div>
-          </div>
-          <div class="count-box">
-            <div class="count-num" id="minutes">00</div>
-            <div class="count-label">Menit</div>
-          </div>
-          <div class="count-box">
-            <div class="count-num" id="seconds">00</div>
-            <div class="count-label">Detik</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Event Time & Location Card -->
-      <section class="card">
-        <h3 class="card-title"><i class="fa-regular fa-calendar-check"></i> Waktu & Tempat</h3>
+      <div class="cover-center">
+        <p class="cover-party-tag">JOIN US TO CELEBRATE</p>
         
-        <div class="info-list">
-          <div class="info-item">
-            <div class="info-icon">
-              <i class="fa-regular fa-calendar"></i>
-            </div>
-            <div class="info-content">
-              <h4>Hari & Tanggal</h4>
-              <p>Sabtu, 21 November</p>
-              <small>Tahun 2026</small>
-            </div>
-          </div>
-
-          <div class="info-item">
-            <div class="info-icon">
-              <i class="fa-regular fa-clock"></i>
-            </div>
-            <div class="info-content">
-              <h4>Waktu Pelaksanaan</h4>
-              <p>16.00 WIB - Selesai</p>
-              <small>Harap hadir tepat waktu</small>
-            </div>
-          </div>
-
-          <div class="info-item">
-            <div class="info-icon">
-              <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <div class="info-content">
-              <h4>Lokasi Acara</h4>
-              <p>Makam RW 09 Gempol</p>
-              <small>Area Berkumpul / Pendopo Sekitar</small>
-            </div>
-          </div>
+        <div class="staggered-title">
+          <span class="word-luna">Luna's</span>
+          <span class="word-eighteen">18TH</span>
         </div>
 
-        <a href="https://www.google.com/maps/search/makam+rw+09+gempol" target="_blank" class="btn-maps">
-          <i class="fa-solid fa-map-location-dot"></i> Buka Google Maps
-        </a>
-      </section>
+        <p class="cover-bday-sub">birthday</p>
 
-      <!-- Dress Code / Tema Warna Card -->
-      <section class="card">
-        <h3 class="card-title"><i class="fa-solid fa-vest-patches"></i> Dress Code</h3>
-        <p class="message-body" style="font-size: 0.85rem;">
-          Kami menyarankan tamu undangan mengenakan pakaian dengan nuansa tema warna acara:
-        </p>
-        <div class="palette-container">
-          <div style="text-align: center;">
-            <div class="palette-circle circle-brown"></div>
-            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Pastel Brown</span>
-          </div>
-          <div style="text-align: center;">
-            <div class="palette-circle circle-white"></div>
-            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Putih</span>
-          </div>
-          <div style="text-align: center;">
-            <div class="palette-circle circle-burgundy"></div>
-            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Burgundy</span>
-          </div>
+        <div class="cover-date-pill">
+          <i class="fa-regular fa-calendar" style="margin-right: 6px;"></i> Saturday, 21 November 2026
         </div>
-      </section>
+      </div>
 
-      <!-- Footer / Terima Kasih -->
-      <footer>
-        <p>"Merupakan suatu kebahagiaan bagi kami atas kehadiran Anda"</p>
-        <span>Sampai jumpa di hari bahagia kami! ❤️</span>
-      </footer>
-
+      <div class="cover-bottom">
+        <button class="btn-open-invite" id="open-invitation">
+          <i class="fa-solid fa-envelope-open" style="font-size: 1rem;"></i> Open Invitation
+        </button>
+      </div>
     </div>
+
+    <!-- ====================================================
+         SECTION 1: HERO & GREETING
+         ==================================================== -->
+    <section class="section-hero">
+      <span class="badge-sub">SPECIAL INVITATION</span>
+      
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-ring"></div>
+        <img src="foto.jpg" alt="Foto Ulang Tahun Luna" class="hero-photo">
+      </div>
+
+      <!-- Teks Persis Seperti di jadiundang.com/rere -->
+      <p class="hero-invitation-quote">
+        "Let's join with me to celebrate<br>my sweet eighteen birthday"
+      </p>
+
+      <h1 class="hero-celebrant-name">Luna</h1>
+    </section>
+
+    <!-- ====================================================
+         SECTION 2: SAVE THE DATE & COUNTDOWN
+         ==================================================== -->
+    <section class="section-wrap section-date">
+      <div class="card-modern">
+        <p class="sec-tag">SAVE THE DATE</p>
+        <h2 class="sec-title">Sweet Eighteen Party</h2>
+
+        <!-- Countdown Grid -->
+        <div class="countdown-flex">
+          <div class="countdown-unit">
+            <div class="countdown-num" id="days">00</div>
+            <div class="countdown-lbl">Days</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-num" id="hours">00</div>
+            <div class="countdown-lbl">Hours</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-num" id="minutes">00</div>
+            <div class="countdown-lbl">Minutes</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-num" id="seconds">00</div>
+            <div class="countdown-lbl">Seconds</div>
+          </div>
+        </div>
+
+        <!-- Detail Waktu & Tempat (Sesuai format link tapi data Luna) -->
+        <div class="info-block">
+          <div class="info-icon-circle">
+            <i class="fa-regular fa-calendar-check"></i>
+          </div>
+          <div class="info-text">
+            <h4>Date</h4>
+            <p>Saturday, 21 November 2026</p>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-icon-circle">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <div class="info-text">
+            <h4>Time</h4>
+            <p>16.00 WIB - Selesai</p>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-icon-circle">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div class="info-text">
+            <h4>Location</h4>
+            <p>Makam RW 09 Gempol</p>
+            <small>Area Berkumpul / Pendopo Sekitar</small>
+          </div>
+        </div>
+
+        <!-- Tombol View Location -->
+        <a href="https://www.google.com/maps/search/makam+rw+09+gempol" target="_blank" class="btn-maps">
+          <i class="fa-solid fa-map-location-dot"></i> View Location
+        </a>
+
+        <!-- Dresscode Box -->
+        <div class="dresscode-box">
+          <p class="dresscode-title">Dresscode</p>
+          <p class="dresscode-val">Pastel Brown, Putih & Burgundy</p>
+          <div class="palette-row">
+            <div class="pal-item">
+              <div class="pal-circle brown"></div>
+              <span class="pal-name">Brown</span>
+            </div>
+            <div class="pal-item">
+              <div class="pal-circle white"></div>
+              <span class="pal-name">White</span>
+            </div>
+            <div class="pal-item">
+              <div class="pal-circle burgundy"></div>
+              <span class="pal-name">Burgundy</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================
+         SECTION 3: WISHES & PRAYERS (Buku Tamu / Doa)
+         ==================================================== -->
+    <section class="section-wrap section-wishes">
+      <div class="wishes-card">
+        <p class="sec-tag">WISHES</p>
+        <h2 class="sec-title">Send Your Best Wishes & Prayers</h2>
+        <p class="wishes-sub">Tuliskan pesan dan doa terbaikmu untuk hari bahagia Luna</p>
+
+        <form id="wish-form">
+          <div class="form-group">
+            <label class="form-label">Nama Anda</label>
+            <input type="text" id="wish-name" class="form-input" placeholder="Masukkan nama Anda..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Konfirmasi Kehadiran</label>
+            <select id="wish-status" class="form-select">
+              <option value="Present">Hadir (Present)</option>
+              <option value="Not present">Tidak Bisa Hadir (Not present)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ucapan & Doa</label>
+            <textarea id="wish-message" class="form-textarea" placeholder="Tuliskan ucapan dan doa..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit-wish">
+            <i class="fa-solid fa-paper-plane"></i> Kirim Ucapan
+          </button>
+        </form>
+
+        <div class="wishes-stream" id="wishes-container">
+          <div class="wish-bubble">
+            <div class="wish-author">
+              <span>Sahabat Luna ❤️</span>
+              <span class="wish-attendance">Present</span>
+            </div>
+            <p class="wish-msg">Happy Sweet 18th Birthday Luna! Semoga panjang umur, sehat selalu, dan tercapai semua impian indahmu!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         SECTION 4: CLOSING QUOTE (Persis Sesuai Link Jadiundang)
+         ==================================================== -->
+    <section class="section-closing">
+      <p class="closing-text-p">
+        "Hopefully you can come to my precious moment.<br>
+        Your coming is my honor."
+      </p>
+
+      <p class="closing-with-love">With Love,</p>
+      <h2 class="closing-name">Luna</h2>
+
+      <p class="footer-watermark">
+        Special Invitation • 18th Birthday Party
+      </p>
+    </section>
+
   </div>
 
   <script>
-    // Inisialisasi Kelopak Bunga Berjatuhan (Red Flowers Petals)
+    // Falling Red Petals Creation
     const petalsContainer = document.getElementById('petals');
     const petalCount = 20;
 
@@ -685,7 +986,7 @@
       petalsContainer.appendChild(petal);
     }
 
-    // Audio Handler
+    // Audio Control
     const audio = document.getElementById('bg-audio');
     const audioToggle = document.getElementById('audio-toggle');
     let isPlaying = false;
@@ -699,31 +1000,24 @@
         audio.play().then(() => {
           audioToggle.classList.add('rotating');
           audioToggle.innerHTML = '<i class="fa-solid fa-compact-disc"></i>';
-        }).catch(e => console.log("Audio autoplay dicegah browser:", e));
+        }).catch(err => console.log("Audio autoplay dicegah browser:", err));
       }
       isPlaying = !isPlaying;
     }
 
     audioToggle.addEventListener('click', toggleAudio);
 
-    // Tombol Buka Undangan
+    // Open Invitation Handler
     const openBtn = document.getElementById('open-invitation');
-    const coverModal = document.getElementById('cover-modal');
+    const coverScreen = document.getElementById('cover-screen');
 
     openBtn.addEventListener('click', () => {
-      coverModal.classList.add('opened');
-      toggleAudio(); // Mainkan musik otomatis saat membuka undangan
+      coverScreen.classList.add('opened');
+      toggleAudio(); // Mainkan lagu saat buka undangan
     });
 
-    // Countdown Timer ke Sabtu, 21 November 16:00
-    // Menghitung target tanggal 21 November (tahun berjalan/terdekat)
-    const currentYear = new Date().getFullYear();
-    let targetDate = new Date(`Nov 21, ${currentYear} 16:00:00`).getTime();
-    
-    // Jika tanggal sudah lewat di tahun ini, arahkan ke tahun depan
-    if (new Date().getTime() > targetDate) {
-      targetDate = new Date(`Nov 21, ${currentYear + 1} 16:00:00`).getTime();
-    }
+    // Countdown Timer ke Sabtu, 21 November 2026 16:00 WIB
+    const targetDate = new Date('Nov 21, 2026 16:00:00').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
@@ -749,6 +1043,31 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // Wishes Form Handler
+    const wishForm = document.getElementById('wish-form');
+    const wishesContainer = document.getElementById('wishes-container');
+
+    wishForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('wish-name').value.trim();
+      const status = document.getElementById('wish-status').value;
+      const message = document.getElementById('wish-message').value.trim();
+
+      if (name && message) {
+        const bubble = document.createElement('div');
+        bubble.className = 'wish-bubble';
+        bubble.innerHTML = `
+          <div class="wish-author">
+            <span>${name}</span>
+            <span class="wish-attendance">${status}</span>
+          </div>
+          <p class="wish-msg">${message}</p>
+        `;
+        wishesContainer.prepend(bubble);
+        wishForm.reset();
+      }
+    });
   </script>
 </body>
 </html>
